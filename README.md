@@ -20,7 +20,7 @@ You can reinforce your croupier training further with my book 'Ace The Table: A 
 ## 🚀 Getting Started
 
 ### How to Use the App:
-1. Visit the live site: [Croupier Training App](https://ellskc.github.io/Croupier-App/)
+1. Visit the live site: [Croupier Training App](https://ellskc.github.io/CroupierTraining/)
 2. Use the navigation menu to explore different sections:
    - **Multiplication Test**: Practice and test your knowledge of roulette payouts.
    - **Terminology**: Review key terms used by croupiers.
