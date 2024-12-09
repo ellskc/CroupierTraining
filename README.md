@@ -42,7 +42,7 @@ You can reinforce your croupier training further with my book 'Ace The Table: A 
 The following features are planned for future updates:
 - User authentication to save progress across devices.
 - Advanced quizzes covering terminology and game rules.
-- Interactive tutorials for specialized games like Baccarat and Craps.
+- Interactive tutorials for specialized games like Baccarat.
 
 ---
 
