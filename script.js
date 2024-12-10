@@ -1,50 +1,96 @@
 let score = 0;
+let questionsAnswered = 0;
 
-// Croupier terminology questions
+// Terminology Questions (UK Casino Terms)
 const terminologyQuestions = [
-    { question: "What is the term for a 21 in Blackjack?", answer: "Blackjack" },
-    { question: "What is the dealer's device to shuffle cards?", answer: "Shoe" },
-    { question: "What does 'push' mean in Blackjack?", answer: "Tie" },
-    { question: "What is the term for splitting the pot equally?", answer: "Split Pot" },
-    { question: "What does 'burn a card' mean?", answer: "Discard the top card" }
+    { question: "What is 'en prison' in roulette?", answer: "Half-back bet" },
+    { question: "What does 'split bet' mean?", answer: "Two numbers" },
+    { question: "What is a 'corner bet'?", answer: "Four numbers" },
+    { question: "What is the 'wheel' in roulette?", answer: "Spinning device" },
+    { question: "What does 'call bet' mean?", answer: "Announced bet" },
 ];
 
-// Function to start 17 & 35 multiplication quiz
-function startTableQuiz() {
-    const randomNumber = Math.floor(Math.random() * 12) + 1;
-    const isTable17 = Math.random() < 0.5; // Randomly decide between 17 and 35
-    const baseNumber = isTable17 ? 17 : 35;
-    const correctAnswer = baseNumber * randomNumber;
+// Start Multiplication Quiz (17 & 35 Tables)
+function startMultiplicationQuiz() {
+    const quizDiv = document.getElementById("quiz");
+    const randomBase = Math.random() < 0.5 ? 17 : 35;
+    const randomMultiplier = Math.floor(Math.random() * 12) + 1;
+    const correctAnswer = randomBase * randomMultiplier;
 
-    document.getElementById("quiz-title").innerText = `Practice ${baseNumber} Table`;
-    document.getElementById("quiz").innerHTML = `
-        <p>What is ${baseNumber} x ${randomNumber}?</p>
+    quizDiv.innerHTML = `
+        <p>What is ${randomBase} x ${randomMultiplier}?</p>
         <input id="answer" type="number" placeholder="Enter your answer">
-        <button onclick="checkTableAnswer(${correctAnswer})">Submit</button>
+        <button onclick="checkMathAnswer(${correctAnswer})">Submit</button>
     `;
 }
 
-// Function to check answers for 17 & 35 multiplication quiz
-function checkTableAnswer(correctAnswer) {
+function checkMathAnswer(correctAnswer) {
     const userAnswer = parseInt(document.getElementById("answer").value);
-    const feedback = document.getElementById("feedback");
-
     if (userAnswer === correctAnswer) {
         score++;
-        feedback.innerText = `Correct! The answer was ${correctAnswer}.`;
+        alert("Correct!");
     } else {
-        feedback.innerText = `Incorrect. The correct answer was ${correctAnswer}.`;
+        alert(`Incorrect. The correct answer was ${correctAnswer}.`);
     }
+    questionsAnswered++;
     updateScore();
-    startTableQuiz(); // Generate the next question
+    startMultiplicationQuiz(); // Continue quiz
 }
 
-// Function to start terminology quiz
+// Start Terminology Quiz
 function startTerminologyQuiz() {
+    const quizDiv = document.getElementById("quiz");
     const randomIndex = Math.floor(Math.random() * terminologyQuestions.length);
     const selectedQuestion = terminologyQuestions[randomIndex];
 
-    document.getElementById("quiz-title").innerText = "Croupier Terminology Quiz";
-    document.getElementById("quiz").innerHTML = `
+    quizDiv.innerHTML = `
         <p>${selectedQuestion.question}</p>
-        <input id="answer"
+        <input id="answer" type="text" placeholder="Enter your answer">
+        <button onclick="checkTerminologyAnswer('${selectedQuestion.answer}')">Submit</button>
+    `;
+}
+
+function checkTerminologyAnswer(correctAnswer) {
+    const userAnswer = document.getElementById("answer").value.trim().toLowerCase();
+    if (userAnswer === correctAnswer.toLowerCase()) {
+        score++;
+        alert("Correct!");
+    } else {
+        alert(`Incorrect. The correct answer was '${correctAnswer}'.`);
+    }
+    questionsAnswered++;
+    updateScore();
+    startTerminologyQuiz(); // Continue quiz
+}
+
+// Update Score and Progress
+function updateScore() {
+    document.getElementById("score").textContent = `Score: ${score}`;
+    document.getElementById("questions-answered").textContent = `Questions Answered: ${questionsAnswered}`;
+}
+
+// Draw Roulette Table
+function drawRouletteTable() {
+    const canvas = document.getElementById("roulette-canvas");
+    const ctx = canvas.getContext("2d");
+
+    // Outer Circle
+    ctx.beginPath();
+    ctx.arc(300, 300, 250, 0, Math.PI * 2);
+    ctx.fillStyle = "#228B22";
+    ctx.fill();
+
+    // French Bets Text
+    ctx.fillStyle = "white";
+    ctx.font = "16px Arial";
+    ctx.fillText("Voisins du Zéro", 230, 200);
+    ctx.fillText("Tiers du Cylindre", 210, 250);
+    ctx.fillText("Orphelins", 270, 300);
+
+    // Add further styling or details as needed
+}
+
+// Initialize Roulette Table on Load
+window.onload = function () {
+    drawRouletteTable();
+};
