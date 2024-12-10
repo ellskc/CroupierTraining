@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ace The Table - Croupier Training App</title>
+    <title>Croupier Training App</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -14,4 +14,21 @@
         <div id="quiz-section">
             <h2 id="quiz-title">Welcome to the Quiz</h2>
             <div id="quiz"></div>
-           
+            <div id="feedback"></div>
+        </div>
+        <div id="score-section">
+            <h3>Your Progress</h3>
+            <p id="score">Score: 0</p>
+        </div>
+        <div id="controls">
+            <button onclick="startTableQuiz()">Practice 17 & 35 Multiplication</button>
+            <button onclick="startTerminologyQuiz()">Terminology Quiz</button>
+            <button onclick="resetProgress()">Reset Progress</button>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Croupier Training App</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
