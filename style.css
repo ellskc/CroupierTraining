@@ -1,41 +1,38 @@
-/* General Styling */
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background: #f9f9f9;
+    margin: 20px;
 }
 
-header {
-    background: #333;
-    color: #fff;
-    padding: 1em;
-    text-align: center;
+h1 {
+    color: #333;
 }
 
-nav a {
-    color: #fff;
-    margin: 0 1em;
-    text-decoration: none;
+#quiz {
+    margin-bottom: 20px;
 }
 
-main {
-    padding: 2em;
-}
-
-section {
-    margin-bottom: 2em;
+#score {
+    margin-bottom: 20px;
+    font-weight: bold;
 }
 
 button {
-    background: #007BFF;
-    color: #fff;
-    padding: 0.5em 1em;
+    padding: 10px 15px;
+    margin: 5px;
     border: none;
-    border-radius: 5px;
+    background-color: #007BFF;
+    color: white;
     cursor: pointer;
+    border-radius: 5px;
 }
 
 button:hover {
-    background: #0056b3;
+    background-color: #0056b3;
+}
+
+input {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
