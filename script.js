@@ -1,6 +1,6 @@
 let score = 0;
 
-// Predefined croupier terminology questions
+// Croupier terminology questions
 const terminologyQuestions = [
     { question: "What is the term for a 21 in Blackjack?", answer: "Blackjack" },
     { question: "What is the dealer's device to shuffle cards?", answer: "Shoe" },
@@ -9,55 +9,42 @@ const terminologyQuestions = [
     { question: "What does 'burn a card' mean?", answer: "Discard the top card" }
 ];
 
-function startMathQuiz() {
-    const question = document.getElementById("quiz");
-    const random1 = Math.floor(Math.random() * 12) + 1;
-    const random2 = Math.floor(Math.random() * 12) + 1;
-    const correctAnswer = random1 * random2;
+// Function to start 17 & 35 multiplication quiz
+function startTableQuiz() {
+    const randomNumber = Math.floor(Math.random() * 12) + 1;
+    const isTable17 = Math.random() < 0.5; // Randomly decide between 17 and 35
+    const baseNumber = isTable17 ? 17 : 35;
+    const correctAnswer = baseNumber * randomNumber;
 
-    question.innerHTML = `
-        <p>Math Quiz: What is ${random1} x ${random2}?</p>
+    document.getElementById("quiz-title").innerText = `Practice ${baseNumber} Table`;
+    document.getElementById("quiz").innerHTML = `
+        <p>What is ${baseNumber} x ${randomNumber}?</p>
         <input id="answer" type="number" placeholder="Enter your answer">
-        <button onclick="checkMathAnswer(${correctAnswer})">Submit</button>
+        <button onclick="checkTableAnswer(${correctAnswer})">Submit</button>
     `;
 }
 
-function checkMathAnswer(correctAnswer) {
-    const userAnswer = document.getElementById("answer").value;
-    const feedback = document.getElementById("score");
+// Function to check answers for 17 & 35 multiplication quiz
+function checkTableAnswer(correctAnswer) {
+    const userAnswer = parseInt(document.getElementById("answer").value);
+    const feedback = document.getElementById("feedback");
 
-    if (parseInt(userAnswer) === correctAnswer) {
+    if (userAnswer === correctAnswer) {
         score++;
-        feedback.innerHTML = `Correct! Your score is ${score}.`;
+        feedback.innerText = `Correct! The answer was ${correctAnswer}.`;
     } else {
-        feedback.innerHTML = `Incorrect. The correct answer was ${correctAnswer}. Your score is ${score}.`;
+        feedback.innerText = `Incorrect. The correct answer was ${correctAnswer}.`;
     }
-
-    startMathQuiz(); // Generate next question
+    updateScore();
+    startTableQuiz(); // Generate the next question
 }
 
+// Function to start terminology quiz
 function startTerminologyQuiz() {
-    const question = document.getElementById("quiz");
     const randomIndex = Math.floor(Math.random() * terminologyQuestions.length);
     const selectedQuestion = terminologyQuestions[randomIndex];
 
-    question.innerHTML = `
-        <p>Terminology Quiz: ${selectedQuestion.question}</p>
-        <input id="answer" type="text" placeholder="Enter your answer">
-        <button onclick="checkTerminologyAnswer('${selectedQuestion.answer}')">Submit</button>
-    `;
-}
-
-function checkTerminologyAnswer(correctAnswer) {
-    const userAnswer = document.getElementById("answer").value.trim().toLowerCase();
-    const feedback = document.getElementById("score");
-
-    if (userAnswer === correctAnswer.toLowerCase()) {
-        score++;
-        feedback.innerHTML = `Correct! Your score is ${score}.`;
-    } else {
-        feedback.innerHTML = `Incorrect. The correct answer was '${correctAnswer}'. Your score is ${score}.`;
-    }
-
-    startTerminologyQuiz(); // Generate next question
-}
+    document.getElementById("quiz-title").innerText = "Croupier Terminology Quiz";
+    document.getElementById("quiz").innerHTML = `
+        <p>${selectedQuestion.question}</p>
+        <input id="answer"
