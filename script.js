@@ -1,3 +1,4 @@
+// Global Variables
 let score = 0;
 let questionsAnswered = 0;
 let currentQuestion = null;
@@ -11,13 +12,16 @@ const terminologyQuestions = [
     { question: "What does 'call bet' mean?", answer: "Announced bet" },
 ];
 
+// Multiplication Quiz Questions
+const multipliers = [17, 35];
+
 // Start Multiplication Quiz
 function startMultiplicationQuiz() {
-    const base = Math.random() < 0.5 ? 17 : 35;
+    const base = multipliers[Math.floor(Math.random() * multipliers.length)];
     const multiplier = Math.floor(Math.random() * 12) + 1;
-    currentQuestion = { 
-        question: `What is ${base} x ${multiplier}?`, 
-        answer: base * multiplier 
+    currentQuestion = {
+        question: `What is ${base} x ${multiplier}?`,
+        answer: base * multiplier,
     };
     displayQuestion();
 }
@@ -51,14 +55,20 @@ function submitAnswer() {
 
     questionsAnswered++;
     updateScore();
-    document.getElementById("quiz-answer").value = "";
-    document.getElementById("quiz-question").textContent = "Click a button to start a quiz.";
+    resetQuizDisplay();
 }
 
-// Update Score and Questions Count
+// Update Score and Reset Display
 function updateScore() {
     document.getElementById("score").textContent = `Score: ${score}`;
     document.getElementById("questions-answered").textContent = `Questions Answered: ${questionsAnswered}`;
+}
+
+function resetQuizDisplay() {
+    document.getElementById("quiz-answer").value = "";
+    document.getElementById("quiz-question").textContent = "Click a button to start a quiz.";
+    document.getElementById("quiz-answer").style.display = "none";
+    document.getElementById("submit-answer").style.display = "none";
 }
 
 // Draw Roulette Table
