@@ -1,20 +1,28 @@
-// Simple Multiplication Quiz
 let score = 0;
 
-function startQuiz() {
+// Predefined croupier terminology questions
+const terminologyQuestions = [
+    { question: "What is the term for a 21 in Blackjack?", answer: "Blackjack" },
+    { question: "What is the dealer's device to shuffle cards?", answer: "Shoe" },
+    { question: "What does 'push' mean in Blackjack?", answer: "Tie" },
+    { question: "What is the term for splitting the pot equally?", answer: "Split Pot" },
+    { question: "What does 'burn a card' mean?", answer: "Discard the top card" }
+];
+
+function startMathQuiz() {
     const question = document.getElementById("quiz");
     const random1 = Math.floor(Math.random() * 12) + 1;
     const random2 = Math.floor(Math.random() * 12) + 1;
     const correctAnswer = random1 * random2;
 
     question.innerHTML = `
-        <p>What is ${random1} x ${random2}?</p>
+        <p>Math Quiz: What is ${random1} x ${random2}?</p>
         <input id="answer" type="number" placeholder="Enter your answer">
-        <button onclick="checkAnswer(${correctAnswer})">Submit</button>
+        <button onclick="checkMathAnswer(${correctAnswer})">Submit</button>
     `;
 }
 
-function checkAnswer(correctAnswer) {
+function checkMathAnswer(correctAnswer) {
     const userAnswer = document.getElementById("answer").value;
     const feedback = document.getElementById("score");
 
@@ -25,5 +33,31 @@ function checkAnswer(correctAnswer) {
         feedback.innerHTML = `Incorrect. The correct answer was ${correctAnswer}. Your score is ${score}.`;
     }
 
-    startQuiz(); // Move to the next question
+    startMathQuiz(); // Generate next question
+}
+
+function startTerminologyQuiz() {
+    const question = document.getElementById("quiz");
+    const randomIndex = Math.floor(Math.random() * terminologyQuestions.length);
+    const selectedQuestion = terminologyQuestions[randomIndex];
+
+    question.innerHTML = `
+        <p>Terminology Quiz: ${selectedQuestion.question}</p>
+        <input id="answer" type="text" placeholder="Enter your answer">
+        <button onclick="checkTerminologyAnswer('${selectedQuestion.answer}')">Submit</button>
+    `;
+}
+
+function checkTerminologyAnswer(correctAnswer) {
+    const userAnswer = document.getElementById("answer").value.trim().toLowerCase();
+    const feedback = document.getElementById("score");
+
+    if (userAnswer === correctAnswer.toLowerCase()) {
+        score++;
+        feedback.innerHTML = `Correct! Your score is ${score}.`;
+    } else {
+        feedback.innerHTML = `Incorrect. The correct answer was '${correctAnswer}'. Your score is ${score}.`;
+    }
+
+    startTerminologyQuiz(); // Generate next question
 }
