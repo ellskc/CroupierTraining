@@ -11,20 +11,24 @@
         <h1>Croupier Training App</h1>
     </header>
     <main>
-        <div id="quiz-section">
-            <h2 id="quiz-title">Welcome to the Quiz</h2>
+        <section id="quiz-section">
+            <h2>Quiz</h2>
             <div id="quiz"></div>
-            <div id="feedback"></div>
-        </div>
-        <div id="score-section">
-            <h3>Your Progress</h3>
+            <button onclick="startMultiplicationQuiz()">17 & 35 Times Table Quiz</button>
+            <button onclick="startTerminologyQuiz()">Croupier Terminology Quiz</button>
+        </section>
+
+        <section id="roulette-section">
+            <h2>Roulette Table</h2>
+            <canvas id="roulette-canvas" width="600" height="600"></canvas>
+            <p id="bet-info"></p>
+        </section>
+
+        <section id="score-section">
+            <h2>Progress</h2>
             <p id="score">Score: 0</p>
-        </div>
-        <div id="controls">
-            <button onclick="startTableQuiz()">Practice 17 & 35 Multiplication</button>
-            <button onclick="startTerminologyQuiz()">Terminology Quiz</button>
-            <button onclick="resetProgress()">Reset Progress</button>
-        </div>
+            <p id="questions-answered">Questions Answered: 0</p>
+        </section>
     </main>
     <footer>
         <p>&copy; 2024 Croupier Training App</p>
