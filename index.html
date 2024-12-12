@@ -30,285 +30,130 @@
             <p id="questions-answered">Questions Answered: 0</p>
         </section>
 
-        <!-- Roulette Section -->
-        <section id="roulette-section">
-            <h2>Roulette Table</h2>
-            <canvas id="roulette-canvas" width="500" height="500"></canvas>
-            <p id="roulette-info">French bets like *Voisins du Zéro*, *Tiers du Cylindre*, and *Orphelins* are shown here.</p>
+       
         </section>
-    </main>
+    </main><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roulette Table</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f0f0f0;
+    }
+    canvas {
+      margin-top: 20px;
+      background-color: #0a522b;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body>
+  <h1>Roulette Table</h1>
+  <canvas id="roulette-canvas" width="500" height="500"></canvas>
+
+  <script>
+    const canvas = document.getElementById('roulette-canvas');
+    const ctx = canvas.getContext('2d');
+
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+    const radius = 200;
+    const pocketCount = 37;
+
+    const pockets = [
+      { number: "0", color: "green" },
+      { number: "32", color: "red" },
+      { number: "15", color: "black" },
+      { number: "19", color: "red" },
+      { number: "4", color: "black" },
+      { number: "21", color: "red" },
+      { number: "2", color: "black" },
+      { number: "25", color: "red" },
+      { number: "17", color: "black" },
+      { number: "34", color: "red" },
+      { number: "6", color: "black" },
+      { number: "27", color: "red" },
+      { number: "13", color: "black" },
+      { number: "36", color: "red" },
+      { number: "11", color: "black" },
+      { number: "30", color: "red" },
+      { number: "8", color: "black" },
+      { number: "23", color: "red" },
+      { number: "10", color: "black" },
+      { number: "5", color: "red" },
+      { number: "24", color: "black" },
+      { number: "16", color: "red" },
+      { number: "33", color: "black" },
+      { number: "1", color: "red" },
+      { number: "20", color: "black" },
+      { number: "14", color: "red" },
+      { number: "31", color: "black" },
+      { number: "9", color: "red" },
+      { number: "22", color: "black" },
+      { number: "18", color: "red" },
+      { number: "29", color: "black" },
+      { number: "7", color: "red" },
+      { number: "28", color: "black" },
+      { number: "12", color: "red" },
+      { number: "35", color: "black" },
+      { number: "3", color: "red" },
+      { number: "26", color: "black" }
+    ];
+
+    function drawRouletteTable() {
+      // Draw the outer circle
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+      ctx.fillStyle = "#0a522b";
+      ctx.fill();
+
+      // Draw the pockets
+      const pocketAngle = (2 * Math.PI) / pocketCount;
+
+      pockets.forEach((pocket, index) => {
+        const startAngle = index * pocketAngle;
+        const endAngle = startAngle + pocketAngle;
+
+        // Draw pocket segment
+        ctx.beginPath();
+        ctx.moveTo(centerX, centerY);
+        ctx.arc(centerX, centerY, radius, startAngle, endAngle);
+        ctx.closePath();
+        ctx.fillStyle = pocket.color;
+        ctx.fill();
+        ctx.strokeStyle = "#fff";
+        ctx.stroke();
+
+        // Draw pocket number
+        const textAngle = startAngle + pocketAngle / 2;
+        const textX = centerX + (radius - 30) * Math.cos(textAngle);
+        const textY = centerY + (radius - 30) * Math.sin(textAngle);
+        ctx.fillStyle = "white";
+        ctx.font = "14px Arial";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(pocket.number, textX, textY);
+      });
+
+      // Draw inner circle
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, radius - 50, 0, 2 * Math.PI);
+      ctx.fillStyle = "#333";
+      ctx.fill();
+    }
+
+    drawRouletteTable();
+  </script>
+</body>
+</html>
+
     <footer>
         <p>&copy; 2024 Croupier Training App</p>
     </footer>
     <script src="script.js"></script>
 </body>
 </html>
-<!DOCTYPE html>
-
-<html lang="en">
-
-<head>
-
-  <meta charset="UTF-8">
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Interactive Roulette Table</title>
-
-  <style>
-
-    body {
-
-      font-family: Arial, sans-serif;
-
-      text-align: center;
-
-      background-color: #f0f0f0;
-
-    }
-
-    .roulette-table {
-
-      display: grid;
-
-      grid-template-columns: repeat(12, 50px);
-
-      margin: 20px auto;
-
-      gap: 5px;
-
-      background-color: green;
-
-      padding: 10px;
-
-      border-radius: 10px;
-
-    }
-
-    .roulette-table div {
-
-      width: 50px;
-
-      height: 50px;
-
-      line-height: 50px;
-
-      text-align: center;
-
-      color: white;
-
-      font-weight: bold;
-
-      border: 1px solid #ccc;
-
-      cursor: pointer;
-
-    }
-
-    .roulette-table .zero {
-
-      grid-column: 1 / span 2;
-
-      background-color: #28a745;
-
-    }
-
-    .roulette-table .red {
-
-      background-color: #ff4d4d;
-
-    }
-
-    .roulette-table .black {
-
-      background-color: #333;
-
-    }
-
-    .bets {
-
-      margin-top: 20px;
-
-    }
-
-    .bet-summary {
-
-      margin-top: 10px;
-
-      padding: 10px;
-
-      border: 1px solid #ccc;
-
-      background-color: #fff;
-
-      border-radius: 5px;
-
-      display: inline-block;
-
-    }
-
-  </style>
-
-</head>
-
-<body>
-
-  <h1>Interactive Roulette Table</h1>
-
-  <div class="roulette-table">
-
-    <div class="zero">0</div>
-
-    <div class="red">1</div>
-
-    <div class="black">2</div>
-
-    <div class="red">3</div>
-
-    <div class="black">4</div>
-
-    <div class="red">5</div>
-
-    <div class="black">6</div>
-
-    <div class="red">7</div>
-
-    <div class="black">8</div>
-
-    <div class="red">9</div>
-
-    <div class="black">10</div>
-
-    <div class="black">11</div>
-
-    <div class="red">12</div>
-
-    <div class="red">13</div>
-
-    <div class="black">14</div>
-
-    <div class="red">15</div>
-
-    <div class="black">16</div>
-
-    <div class="red">17</div>
-
-    <div class="black">18</div>
-
-    <div class="red">19</div>
-
-    <div class="black">20</div>
-
-    <div class="red">21</div>
-
-    <div class="black">22</div>
-
-    <div class="red">23</div>
-
-    <div class="black">24</div>
-
-    <div class="black">25</div>
-
-    <div class="red">26</div>
-
-    <div class="black">27</div>
-
-    <div class="red">28</div>
-
-    <div class="black">29</div>
-
-    <div class="red">30</div>
-
-    <div class="red">31</div>
-
-    <div class="black">32</div>
-
-    <div class="red">33</div>
-
-    <div class="black">34</div>
-
-    <div class="red">35</div>
-
-    <div class="black">36</div>
-
-  </div>
-
-  <div class="bets">
-
-    <h3>Your Bets</h3>
-
-    <div class="bet-summary" id="betSummary">
-
-      No bets placed yet.
-
-    </div>
-
-  </div>
-
-  <script>
-
-    // JavaScript to handle interactivity
-
-    const rouletteTable = document.querySelector('.roulette-table');
-
-    const betSummary = document.getElementById('betSummary');
-
-    let bets = [];
-
-
-
-    // Helper function to display bets
-
-    function updateBetSummary() {
-
-      if (bets.length === 0) {
-
-        betSummary.textContent = 'No bets placed yet.';
-
-      } else {
-
-        betSummary.innerHTML = bets.map(bet => `<div>${bet.type}: ${bet.number}</div>`).join('');
-
-      }
-
-    }
-
-
-
-    // Event listener for clicks on the table
-
-    rouletteTable.addEventListener('click', (event) => {
-
-      if (event.target.tagName === 'DIV') {
-
-        const number = event.target.textContent;
-
-        const color = event.target.classList.contains('red') ? 'Red' : 'Black';
-
-
-
-        // Add a new bet
-
-        const bet = { type: 'Straight Up', number, color };
-
-        bets.push(bet);
-
-
-
-        updateBetSummary();
-
-        alert(`Bet placed: ${bet.type} on ${bet.number} (${bet.color})`);
-
-      }
-
-    });
-
-  </script>
-
-</body>
-
-</html>
-
-
-
-
